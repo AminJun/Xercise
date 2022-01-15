@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise</title>
+    <script>
+        let workouts = [
+            {'name': 'Warm Up', 'time': 60},
+            {'name': 'Push Up', 'time': 40},
+            {'name': 'Rest', 'time': 20},
+            {'name': 'Squat', 'time': 60},
+            {'name': 'Rest', 'time': 20},
+            {'name': 'Plank', 'time': 60},
+            {'name': 'Rest', 'time': 20},
+            {'name': 'Reverse Push Up', 'time': 30},
+            {'name': 'Rest', 'time': 20},
+            {'name': 'Dumbbells Biceps', 'time': 40},
+            {'name': 'Cool Down', 'time': 60},
+        ];
+
+        function main(){
+
+        }
+
+        let already = false;
+
+        function start() {
+            if(already) return ;
+            already = true;
+            let rem = -1;
+            let index = -1;
+
+            {#let btn = document.getElementById('start');#}
+            let timer = document.getElementById('timer');
+            let workout = document.getElementById('workout');
+            let audio = document.getElementById('sound');
+            audio.setAttribute("hidden", "hidden");
+            {#btn.style.display = 'none';#}
+
+            const timeout = setInterval(function () {
+                if (rem === -1) {
+                    index += 1;
+                    if (index >= workouts.length) {
+                        workout.innerHTML = 'Well Done!';
+                        timer.innerHTML = "";
+                        clearTimeout(timeout);
+                        audio.play();
+                    } else {
+                        workout.innerHTML = workouts[index]['name'];
+                        rem = workouts[index]['time'];
+                        timer.innerHTML = rem;
+                        audio.play();
+                    }
+                } else {
+                    timer.innerHTML = rem;
+                }
+                rem -= 1;
+            }, 1000);
+        }
+    </script>
+    <style>
+        #content {
+            position: absolute;
+            -ms-transform: translateY(-50%) translateX(-50%);
+            transform: translateY(-50%) translateX(-50%);
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            font-size: 10em;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 1.5em;
+        }
+
+        #start {
+            font-size: 1em;
+            width: 100%;
+        }
+    </style>
+</head>
+<body onload="main()">
+<div id="content">
+    <audio onplay="start()" id="sound" src="https://orangefreesounds.com/wp-content/uploads/2020/08/Usb-connection-sound-effect.mp3" controls autoplay></audio>
+{#    <button id="start" onclick="start()">Start</button>#}
+    <div id="workout"></div>
+    <div id="timer"></div>
+</div>
+{#<audio id="sound" src="https://www.soundjay.com/buttons/beep-08b.mp3" controls autoplay></audio>#}
+
+</body>
+</html>
